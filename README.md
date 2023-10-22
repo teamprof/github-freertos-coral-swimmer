@@ -52,7 +52,7 @@ The following components are required for this project:
 2. ESP32 Dev Kit V1 
 3. Bluetooth enabled bone conduction earphone (A Bluetooth speaker is used for illustration/demonstration purpose)
 4. I2C level shifter module
-5. (optional) coral-esp32-adapter
+5. (optional) coral-esp32-adapter  
 [![coral-esp32-adapter](/doc/image/pcba.jpg)](https://github.com/teamprof/esp32-a2dp-source/blob/main/doc/image/pcba.jpg)
 
 ---
