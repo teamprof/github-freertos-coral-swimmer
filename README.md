@@ -146,7 +146,6 @@ Here's an example of setting the I2C slave address to "0x55".
 #define I2C_DEV_ADDR ((uint8_t)0x55)
 ```
 
-```
 ### Please refer to source code for details
 ## *** source code will be available in E/Nov ***
 
@@ -190,7 +189,7 @@ Many thanks to the following authors who have developed great software and libra
 1. [Hackster](https://www.hackster.io/contests/buildtogether)
 2. [Coral team](https://coral.ai/about-coral/)
 
-Many thanks for everyone for bug reporting, new feature suggesting, testing and contributing to the development of this project.
+#### Many thanks for everyone for bug reporting, new feature suggesting, testing and contributing to the development of this project.
 ---
 
 ### Contributing
