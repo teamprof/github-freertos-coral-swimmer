@@ -13,6 +13,7 @@ The swimmer wears a bone conduction earphone, that is enabled with Bluetooth, to
 
 ---
 ## Swimmer Assistive System
+There are two pieces of hardware in the swimmer assistance system. The first piece of hardware is a computer vision device that monitors the swimmer and broadcasts audible feedback. The second piece of hardware is a Bluetooth-enabled bone-conduction earphone, which is available on common e-commerce sites.
 ```
                                   +------------+
                                   |  swimming  | (the cap prevent lost of earphone during swimming)
@@ -23,15 +24,12 @@ The swimmer wears a bone conduction earphone, that is enabled with Bluetooth, to
 | equipment |                     |  earphone  |            
 +-----------+                     +------------+       
 
-The computer vision equipment is installed somewhere above the swimming pool.
-The bone conduction earphone is weared by the swimmer. A swimming cap is recommended to prevent lost of the earphone during swimming.
+note 1: The computer vision equipment is installed somewhere above the swimming pool.
+note 2: The bone conduction earphone is worn by the swimmer. A swimming cap is recommended to prevent loss of the earphone during swimming.
 ```
 
-## System image 
-## *** System image will be available in E/Nov ***
-
-
 ## Computer vision equipment
+There are two core components in the Computer Vision Equipment. The first one is a Coral Dev Board Micro, which monitors the swimmer and whose firmware is available on [freertos-coral-swimmer](https://github.com/teamprof/freertos-coral-swimmer). The second one is an ESP32 DevKit, which broadcasts audible feedback and whose firmware is available on [esp32-a2dp-source](https://github.com/teamprof/esp32-a2dp-source).
 ```
    +--------+
    | camera |
@@ -42,8 +40,6 @@ The bone conduction earphone is weared by the swimmer. A swimming cap is recomme
 |              |  (1V8)  |shifter|  (3V3)  | a2dp  |        
 +--------------+         +-------+         +-------+       
 ```
-Firmware for the coral micro is on this github [freertos-coral-swimmer](https://github.com/teamprof/freertos-coral-swimmer)
-Firmware for the esp32 is available here [esp32-a2dp-source](https://github.com/teamprof/esp32-a2dp-source)
 
 ---
 ## Hardware
@@ -62,7 +58,7 @@ The following components are required for this project:
 ---
 
 ## LED
-- Status LED: turn on when detected swimming pool
+- Status LED: turn on when detected lane
 - User LED: turn on when detected swimmer
 ---
 
@@ -133,9 +129,21 @@ slave to master  |       0        |        0       |       0        |     result
 ```
 
 ## Download, build and flash
-## *** To be available soon ***
+Launch a Ubuntu/Linux terminal and type the following commands to download, build and flash the firmware on the Coral Dev Board Micro
+1. git clone https://github.com/teamprof/github-freertos-coral-swimmer
+2. cd github-freertos-coral-swimmer
+3. git submodule update --init --recursive
+4. bash coralmicro/setup.sh
+5. cmake -B out -S .
+6. make -C out -j4
+7. python3 coralmicro/scripts/flashtool.py --build_dir out --elf_path out/coralmicro-app
 
+For more information about creating a project, either in-tree or out-of-tree, see the guide
+to [Build apps with FreeRTOS for the Dev Board Micro](https://coral.ai/docs/dev-board-micro/freertos/).
 
+**Note:** This project depends on [coralmicro](https://github.com/google-coral/coralmicro),
+which requires about 2.5 GB.  
+  
 
 ## Code explanation
 
@@ -181,7 +189,12 @@ Submit issues to: [Coral swimmer assistance issues](https://github.com/teamprof/
 
 ---
 ### TO DO
-1. Search for bug and improvement.
+1. port [libcoral](https://github.com/google-coral/libcoral) to [Coral Dev Board Micro](https://coral.ai/docs/dev-board-micro/get-started)
+2. port [OpenCV](https://opencv.org/) to [Coral Dev Board Micro](https://coral.ai/docs/dev-board-micro/get-started)
+3. develop objects detection for lane rope, edge of pool and swimmer with [Transfer Learning - Weight imprinting](https://www.coral.ai/docs/reference/cpp/learn/#weight-imprinting) and/or [OpenCV](https://opencv.org/)
+4. get approval for on-site test in swimming pool 
+5. enhance features to support multiple swimmers and lanes detection
+6. Search for bug and improvement.
 ---
 
 ### Contributions and Thanks
