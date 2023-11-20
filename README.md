@@ -90,13 +90,17 @@ which requires about 2.5 GB.
 Install Python plugins and run the Python script to see the image and detection results from the Coral Dev Board Micro
 1. python3 -m pip install -r py/requirements.txt
 2. python3 py/coral_swimmer.py
+If everything goes smooth, you should see the following GUI app on Ubuntu:
+...
+...
 
+3. Place a blue-colored box under the camera. If the box is detected, you should see the box inside a white frame on the GUI app. The "Status LED" on the Coral Dev Board Micro should also be turned on.
+4. Power up the Bluetooth speaker and wait a couple of seconds. Once the ESP32 DevKit is connected to the Bluetooth speaker, the "User LED" on the Coral Dev Board Micro should be turned on.
+5. Place a doll on the blue-colored box. 
+   When the swimmer is in the middle, you should see a green-colored rectangle in the GUI app around the swimmer, and hear a "beep" tone on the Bluetooth speaker.
+   When the swimmer is near the left lane rope, you should see a red-colored rectangle in the GUI app around the swimmer, and hear a "bright" tone on the Bluetooth speaker.
+   When the swimmer is near the right lane rope, you should see a red-colored rectangle in the GUI app around the swimmer, and hear a "bell" tone on the Bluetooth speaker.
 
-  
-
-## LED
-- Status LED: turn on when detected lane
-- User LED: turn on when Bluetooth speaker is connected
 ---
 
 ## Hardware connection between Coral Dev Board Micro and ESP32
@@ -164,6 +168,11 @@ slave to master  |       0        |        0       |       0        |     result
     2. coral re-start I2cCommand::IsA2dpConnected flow once "I2cResponse::ErrorDisconnected" is received
 ```
 
+## LED
+- User LED: turn on when detected lane
+- Status LED: turn on when Bluetooth speaker is connected
+
+---
 
 ## Code explanation
 
@@ -173,6 +182,22 @@ Here's an example of setting the I2C slave address to "0x55".
 ```
 #define I2C_DEV_ADDR ((uint8_t)0x55)
 ```
+
+### ThreadReporter
+The I2C communication code is implemented in the file "./src/app/thread/ThreadReporter.cpp". "ThreadReporter" is responsible for the following tasks:
+1. Pool ESP32 on I2C bus regularly, to check Bluetooth (earphone) connection status on ESP32
+2. listens event from "ThreadInference", sends commands to ESP32 via I2C
+
+### ThreadInference
+"ThreadInference" (./src/app/thread/ThreadInference.cpp) is responsible for the following tasks:
+1. initialize tesnsorflow machine learning code 
+2. perform objects detection regularly
+3. computes swimmer location and sends event to "ThreadInference"
+
+### QueueMainM7
+"QueueMainM7" (./src/app/thread/QueueMainM7.cpp) is responsible for the following tasks:
+1. Turn "User LED" on when detected lane
+2. Turn "Status LED" on when Bluetooth speaker is connected
 
 ### Please refer to source code for details
 
