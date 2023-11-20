@@ -54,12 +54,49 @@ The following components are required for this project:
 ---
 ## Software 
 1. Install [Coral Dev Board Micro](https://coral.ai/docs/dev-board-micro/get-started)
-4. Download and extract this freertos-coral-swimmer code from github 
+2. Clone this repository by "git clone https://github.com/teamprof/github-freertos-coral-swimmer"
 ---
+
+
+## Download and build firmwares for the Coral Assistive System
+Since there are two MCUs (NXP i.MX RT1176 and ESP32) in the "computer vision device", They have to flash separately.
+
+### Download, build and flash firmware on ESP32 
+Please following the instruction on "https://github.com/teamprof/github-esp32-a2dp-source"about how to flash the ESP32 firmware.
+
+### Download, build and flash firmware on Coral Dev Board Micro
+Launch a Ubuntu/Linux terminal and type the following commands to download, build and flash the firmware on the Coral Dev Board Micro
+1. git clone https://github.com/teamprof/github-freertos-coral-swimmer
+2. cd github-freertos-coral-swimmer
+3. git submodule update --init --recursive
+4. bash coralmicro/setup.sh
+5. cmake -B out -S .
+6. make -C out -j4
+7. python3 coralmicro/scripts/flashtool.py --build_dir out --elf_path out/coralmicro-app
+
+For more information about creating a project, either in-tree or out-of-tree, see the guide
+to [Build apps with FreeRTOS for the Dev Board Micro](https://coral.ai/docs/dev-board-micro/freertos/).
+
+**Note:** This project depends on [coralmicro](https://github.com/google-coral/coralmicro),
+which requires about 2.5 GB.  
+
+## Run the Coral Assistive System
+1. Launch a Serial terminal, set baud rate to 115200 and connect it to the USB port of the COral Dev Board Micro
+2. Power on both the Coral Dev Board Micro and ESP32. Power on the Bluetooth speaker. If everything goes smooth, you should see the followings on the serial terminal:
+[![serial terminal screen](/doc/image/serial-terminal-bluetooth-connected.png)](https://github.com/teamprof/esp32-a2dp-source/blob/main/doc/image/serial-terminal-bluetooth-connected.png)
+
+
+## Setup and run Python script
+Install Python plugins and run the Python script to see the image and detection results from the Coral Dev Board Micro
+1. python3 -m pip install -r py/requirements.txt
+2. python3 py/coral_swimmer.py
+
+
+  
 
 ## LED
 - Status LED: turn on when detected lane
-- User LED: turn on when detected swimmer
+- User LED: turn on when Bluetooth speaker is connected
 ---
 
 ## Hardware connection between Coral Dev Board Micro and ESP32
@@ -73,7 +110,6 @@ The following components are required for this project:
 | kSDA1 |   I2C1 SDA     |     |  21  |   I2C SDA    |
 +-------+----------------+     +------+--------------+
 ```
-
 
 ## I2C communication format
 ```
@@ -128,22 +164,6 @@ slave to master  |       0        |        0       |       0        |     result
     2. coral re-start I2cCommand::IsA2dpConnected flow once "I2cResponse::ErrorDisconnected" is received
 ```
 
-## Download, build and flash
-Launch a Ubuntu/Linux terminal and type the following commands to download, build and flash the firmware on the Coral Dev Board Micro
-1. git clone https://github.com/teamprof/github-freertos-coral-swimmer
-2. cd github-freertos-coral-swimmer
-3. git submodule update --init --recursive
-4. bash coralmicro/setup.sh
-5. cmake -B out -S .
-6. make -C out -j4
-7. python3 coralmicro/scripts/flashtool.py --build_dir out --elf_path out/coralmicro-app
-
-For more information about creating a project, either in-tree or out-of-tree, see the guide
-to [Build apps with FreeRTOS for the Dev Board Micro](https://coral.ai/docs/dev-board-micro/freertos/).
-
-**Note:** This project depends on [coralmicro](https://github.com/google-coral/coralmicro),
-which requires about 2.5 GB.  
-  
 
 ## Code explanation
 
@@ -155,7 +175,6 @@ Here's an example of setting the I2C slave address to "0x55".
 ```
 
 ### Please refer to source code for details
-## *** source code will be available in E/Nov ***
 
 ---
 
