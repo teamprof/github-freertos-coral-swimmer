@@ -83,23 +83,21 @@ which requires about 2.5 GB.
 ## Run the Coral Assistive System
 1. Launch a Serial terminal, set baud rate to 115200 and connect it to the USB port of the COral Dev Board Micro
 2. Power on both the Coral Dev Board Micro and ESP32. Power on the Bluetooth speaker. If everything goes smooth, you should see the followings on the serial terminal:
-[![serial terminal screen](/doc/image/serial-terminal-bluetooth-connected.png)](https://github.com/teamprof/esp32-a2dp-source/blob/main/doc/image/serial-terminal-bluetooth-connected.png)
+[![serial terminal screen](/doc/image/serial-terminal-bluetooth-connected.png)](https://github.com/teamprof/github-freertos-coral-swimmer/blob/main/doc/image/serial-terminal-bluetooth-connected.png)
 
 
 ## Setup and run Python script
 Install Python plugins and run the Python script to see the image and detection results from the Coral Dev Board Micro
 1. python3 -m pip install -r py/requirements.txt
 2. python3 py/coral_swimmer.py
-If everything goes smooth, you should see the following GUI app on Ubuntu:
-...
-...
-
 3. Place a blue-colored box under the camera. If the box is detected, you should see the box inside a white frame on the GUI app. The "Status LED" on the Coral Dev Board Micro should also be turned on.
 4. Power up the Bluetooth speaker and wait a couple of seconds. Once the ESP32 DevKit is connected to the Bluetooth speaker, the "User LED" on the Coral Dev Board Micro should be turned on.
 5. Place a doll on the blue-colored box. 
    When the swimmer is in the middle, you should see a green-colored rectangle in the GUI app around the swimmer, and hear a "beep" tone on the Bluetooth speaker.
    When the swimmer is near the left lane rope, you should see a red-colored rectangle in the GUI app around the swimmer, and hear a "bright" tone on the Bluetooth speaker.
    When the swimmer is near the right lane rope, you should see a red-colored rectangle in the GUI app around the swimmer, and hear a "bell" tone on the Bluetooth speaker.
+If everything goes smooth, you should see the following GUI app on Ubuntu:
+[![gui app screen](/doc/image/gui-app.png)](https://github.com/teamprof/github-freertos-coral-swimmer/blob/main/doc/image/gui-app.png)
 
 ---
 
