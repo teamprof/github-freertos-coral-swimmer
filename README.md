@@ -201,6 +201,9 @@ The I2C communication code is implemented in the file "./src/app/thread/ThreadRe
 
 ---
 
+## System imagw
+[![system image](/doc/image/system-img.png)](https://github.com/teamprof/github-freertos-coral-swimmer/blob/main/doc/image/system-img.png)
+
 ## Demo
 Video demo is available on [Coral swimmer video](https://www.youtube.com/watch?v=D5fEQ51aty8)  
 
