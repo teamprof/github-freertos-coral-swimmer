@@ -202,7 +202,7 @@ The I2C communication code is implemented in the file "./src/app/thread/ThreadRe
 ---
 
 ## Demo
-## *** Video demo will be available in E/Nov ***
+Video demo is available on [Coral swimmer video](https://www.youtube.com/watch?v=D5fEQ51aty8)  
 
 
 ---
